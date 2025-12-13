@@ -65,4 +65,4 @@ jobs:
         env:
           RAILWAY_TOKEN: a525ba23-d6c2-4171-9cde-30c1f6c4d141
         run: |
-          railway up --image mosama25/my-app:${{ github.sha }} --environment staging --service mohamed --detach
+          railway deploy --image mosama25/my-app:${{ github.sha }} --environment staging --service mohamed
