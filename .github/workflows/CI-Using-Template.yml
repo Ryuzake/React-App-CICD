@@ -7,7 +7,7 @@ on:
 
 
 jobs:
-  build:
+  React-CI:
     uses: mohammedd2510/Reusable-Workflows-Custom-Actions/.github/workflows/React-CI-Template.yml@main
     with:
       node-version: '20'
