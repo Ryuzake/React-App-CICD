@@ -31,15 +31,12 @@ jobs:
 
     - name: Run Gitleaks
       uses: gitleaks/gitleaks-action@v2
-      with:
-          format: sarif             # Output in SARIF format
-          output: gitleaks.sarif    # File name for SARIF report
       continue-on-error: true
 
     - name: Upload SARIF to GitHub
       uses: github/codeql-action/upload-sarif@v3
       with:
-          sarif_file: gitleaks.sarif
+          sarif_file: results.sarif
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
       with:
