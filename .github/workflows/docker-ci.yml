@@ -2,6 +2,7 @@ name: dockerized CI
 on:
   push:
 permissions:
+  contents: read
   packages: write
 jobs:
   build:
@@ -25,5 +26,5 @@ jobs:
         uses: docker/build-push-action@v6.18.0
         with:
           push: true
-          tags: ghrc.io/ryuzake/react-app-cicd:${{ github.sha }}
+          tags: ghrc.io/${{  lower(github.repository)  }}:${{ github.sha }}
           context: .
