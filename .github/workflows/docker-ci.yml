@@ -25,5 +25,5 @@ jobs:
         uses: docker/build-push-action@v6.18.0
         with:
           push: true
-          tags: ghrc.io/Ryuzake/react-app-cicd:${{ github.sha }}
+          tags: ghrc.io/ryuzake/react-app-cicd:${{ github.sha }}
           context: .
