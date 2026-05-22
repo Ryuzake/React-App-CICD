@@ -23,7 +23,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
       - name: install dependencies
-        if: steps.cache.outputs.cache-hit == 'false'
+        # if: steps.cache.outputs.cache-hit != 'true'
         run: npm install
       - name: linting
         run: npm run lint
