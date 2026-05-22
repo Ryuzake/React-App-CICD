@@ -1,0 +1,24 @@
+name: matrix CI
+
+on:
+  push:
+
+jobs:
+  matrix:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node: [16, 18, 20]
+        exclude:
+          - os: windows-latest
+            node: 16
+        include:
+          - os: ubuntu-latest
+            node: 21
+      max-parallel: 2
+    steps:
+      - name: printing...
+        run: |
+          echo "Running on OS: ${{ matrix.os }}"
+          echo "Node.js version: ${{ matrix.node }}"
