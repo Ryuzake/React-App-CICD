@@ -19,10 +19,10 @@ jobs:
             node_modules
             ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json')}}
-          # restore-keys: |
-          #  ${{ runner.os }}-node-
+          restore-keys: |
+            ${{ runner.os }}-node-
       - name: install dependencies
-        # if: steps.cache.outputs.cache-hit != 'true'
+        if: steps.cache.outputs.cache-hit != 'true'
         run: npm install
       - name: linting
         run: npm run lint
