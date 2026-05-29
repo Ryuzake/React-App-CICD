@@ -51,8 +51,8 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ github.actor }}/react-app-cicd:${{ github.sha }}
-            ghcr.io/${{ github.actor }}/react-app-cicd:latest
+            ghcr.io/${{ryuzake}}/react-app-cicd:${{ github.sha }}
+            ghcr.io/${{ryuzake}}/react-app-cicd:latest
 
   CD:
     runs-on: ec2
