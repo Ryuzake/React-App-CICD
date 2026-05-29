@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  cache:
+  CI:
     runs-on: ubuntu
     steps:
       - uses: actions/checkout@v4
@@ -30,3 +30,6 @@ jobs:
       #  run: npm run test
       - name: building
         run: npm run build
+  CD:
+    runs-on: ubuntu
+    needs: CI
