@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   CI:
-    runs-on: ubuntu-latest
+    runs-on: ec2
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -20,33 +20,21 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Cache Node.js dependencies
-        id: cache-node
-        uses: actions/cache@v3
-        with:
-          path: |
-            node_modules
-            ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
       - name: Install Dependencies
-        if: steps.cache-node.outputs.cache-hit != 'true'
         run: npm install
 
       - name: Build
         run: npm run build
 
       - name: Log in to GHCR
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4.2.0
         with:
           registry: ghcr.io
-          username: tayakaza
+          username: ryuzake
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build & Push Docker Image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v7.2.0
         with:
           context: .
           push: true
@@ -59,10 +47,10 @@ jobs:
     needs: CI
     steps:
       - name: Log in to GHCR
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4.2.0
         with:
           registry: ghcr.io
-          username: tayakaza
+          username: ryuzake
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Pull Docker Image
