@@ -30,7 +30,7 @@ jobs:
         uses: docker/login-action@v4.2.0
         with:
           registry: ghcr.io
-          username: ryuzake
+          username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build & Push Docker Image
@@ -39,8 +39,8 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/ryuzake/react-app-cicd:${{ github.sha }}
-            ghcr.io/ryuzake/react-app-cicd:latest
+            ghcr.io/${{github.actor }}/react-app-cicd:${{ github.sha }}
+            ghcr.io/${{github.actor }}/react-app-cicd:latest
 
   CD:
     runs-on: ec2
@@ -50,12 +50,12 @@ jobs:
         uses: docker/login-action@v4.2.0
         with:
           registry: ghcr.io
-          username: ryuzake
+          username: ${{github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Pull Docker Image
         run: |
-          docker pull ghcr.io/ryuzake/react-app-cicd:${{ github.sha }}
+          docker pull ghcr.io/${{ github.actor }}/react-app-cicd:${{ github.sha }}
 
       - name: Stop Old Container (if running)
         run: |
@@ -67,7 +67,7 @@ jobs:
           docker run -d \
             --name react-app \
             -p 80:80 \
-            ghcr.io/ryuzake/react-app-cicd:${{ github.sha }}
+            ghcr.io/${{ github.actor }}/react-app-cicd:${{ github.sha }}
 
       - name: Verify App is Running
         run: |
